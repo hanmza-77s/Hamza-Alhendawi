@@ -4,7 +4,7 @@ import os
 from fastapi.staticfiles import StaticFiles
 
 from backend.database import Base, engine
-from backend.routers import account, content  # Added content router
+from backend.routers import account, content, scheduler as sched_router
 
 # Create SQLite tables on startup
 Base.metadata.create_all(bind=engine)
@@ -25,6 +25,7 @@ app.add_middleware(
 # Register routers
 app.include_router(account.router, prefix="/api")
 app.include_router(content.router, prefix="/api")
+app.include_router(sched_router.router, prefix="/api")
 
 
 @app.get("/health")

@@ -66,3 +66,20 @@ def generate_post(theme: str) -> Dict:
     base["image_url"] = f"https://placehold.co/600x600?text={theme}"
     base["video_url"] = "https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4"
     return base
+
+
+def generate_reply(theme: str, comment_text: str) -> str:
+    """Generate a comment reply with friendly tone (sentiment-aware)."""
+    if _openai_ready():
+        prompt = (
+            "You manage a {theme} Instagram account. Craft a short, friendly reply to the following comment. "
+            "Keep it under 30 words. Comment: \n" + comment_text
+        ).format(theme=theme)
+        completion = openai.ChatCompletion.create(
+            model="gpt-4o-mini",
+            messages=[{"role": "user", "content": prompt}],
+            max_tokens=60,
+        )
+        return completion.choices[0].message["content"].strip()
+
+    return f"[Mock Reply] Thanks for sharing your thoughts!"
