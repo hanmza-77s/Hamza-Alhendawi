@@ -34,3 +34,8 @@ class ContentOut(BaseModel):
 
 class ContentGenerateRequest(BaseModel):
     account_id: int
+
+
+class ContentUpdate(BaseModel):
+    scheduled_time: Optional[datetime] = None
+    posted: Optional[bool] = None
