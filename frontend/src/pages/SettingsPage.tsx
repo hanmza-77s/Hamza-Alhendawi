@@ -6,7 +6,7 @@ interface Settings {
   headless: boolean
 }
 
-export default function SettingsPage() {
+const SettingsPage: React.FC = () => {
   const [cfg, setCfg] = useState<Settings | null>(null)
   const [saving, setSaving] = useState(false)
 
@@ -16,7 +16,7 @@ export default function SettingsPage() {
       .then(setCfg)
   }, [])
 
-  const handleChange = (field: keyof Settings, value: any) => {
+  const handleChange = <K extends keyof Settings>(field: K, value: Settings[K]) => {
     if (!cfg) return
     setCfg({ ...cfg, [field]: value })
   }
@@ -77,3 +77,5 @@ export default function SettingsPage() {
     </div>
   )
 }
+
+export default SettingsPage

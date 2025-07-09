@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-export default function WelcomeScreen() {
+const WelcomeScreen: React.FC = () => {
   const [theme, setTheme] = useState('')
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
@@ -9,7 +9,7 @@ export default function WelcomeScreen() {
 
   const navigate = useNavigate()
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const res = await fetch('/api/account/', {
       method: 'POST',
@@ -64,3 +64,5 @@ export default function WelcomeScreen() {
     </form>
   )
 }
+
+export default WelcomeScreen

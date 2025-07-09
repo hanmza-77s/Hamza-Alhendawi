@@ -9,7 +9,7 @@ import AnalyticsPage from './pages/AnalyticsPage'
 import SettingsPage from './pages/SettingsPage'
 import WelcomeScreen from './components/WelcomeScreen'
 
-export default function App() {
+const App: React.FC = () => {
   return (
     <BrowserRouter>
       <Routes>
@@ -28,3 +28,5 @@ export default function App() {
     </BrowserRouter>
   )
 }
+
+export default App

@@ -19,7 +19,7 @@ interface Analytics {
   scheduled_counts: number[]
 }
 
-export default function AnalyticsPage() {
+const AnalyticsPage: React.FC = () => {
   const [accounts, setAccounts] = useState<Account[]>([])
   const [selected, setSelected] = useState<number | ''>('')
   const [data, setData] = useState<Analytics | null>(null)
@@ -97,3 +97,5 @@ function Metric({ label, value }: { label: string; value: number }) {
     </div>
   )
 }
+
+export default AnalyticsPage

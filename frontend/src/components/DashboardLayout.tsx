@@ -10,7 +10,7 @@ const links = [
   { to: '/dashboard/settings', label: 'Settings' },
 ]
 
-export default function DashboardLayout() {
+const DashboardLayout: React.FC = () => {
   return (
     <div className="flex min-h-screen">
       <aside className="w-56 bg-gray-800 text-white flex-shrink-0">
@@ -36,3 +36,5 @@ export default function DashboardLayout() {
     </div>
   )
 }
+
+export default DashboardLayout
