@@ -7,7 +7,7 @@ interface Account {
   created_at: string
 }
 
-export default function HomePage() {
+const HomePage: React.FC = () => {
   const [accounts, setAccounts] = useState<Account[]>([])
   const [loading, setLoading] = useState(true)
 
@@ -46,3 +46,5 @@ export default function HomePage() {
     </div>
   )
 }
+
+export default HomePage
