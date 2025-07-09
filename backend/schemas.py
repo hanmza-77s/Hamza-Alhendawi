@@ -30,3 +30,7 @@ class ContentOut(BaseModel):
 
     class Config:
         orm_mode = True
+
+
+class ContentGenerateRequest(BaseModel):
+    account_id: int

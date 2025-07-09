@@ -8,3 +8,4 @@ moviepy
 python-multipart
 requests
 aiohttp
+pillow
