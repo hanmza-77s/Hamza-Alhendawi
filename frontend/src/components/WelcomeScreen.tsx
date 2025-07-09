@@ -1,10 +1,13 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 export default function WelcomeScreen() {
   const [theme, setTheme] = useState('')
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [success, setSuccess] = useState(false)
+
+  const navigate = useNavigate()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -15,6 +18,7 @@ export default function WelcomeScreen() {
     })
     if (res.ok) {
       setSuccess(true)
+      navigate('/dashboard')
     } else {
       alert('Failed to create account')
     }
