@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 type Account = {
   id: number
@@ -14,7 +14,7 @@ type Content = {
   video_url?: string
 }
 
-export default function ContentCreatorPage() {
+const ContentCreatorPage: React.FC = () => {
   const [accounts, setAccounts] = useState<Account[]>([])
   const [selected, setSelected] = useState<number | ''>('')
   const [generated, setGenerated] = useState<Content | null>(null)
@@ -90,3 +90,5 @@ export default function ContentCreatorPage() {
     </div>
   )
 }
+
+export default ContentCreatorPage

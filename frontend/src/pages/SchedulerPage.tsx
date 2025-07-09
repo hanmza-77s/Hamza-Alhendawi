@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 interface Account {
   id: number
@@ -13,7 +13,7 @@ interface Content {
   posted: boolean
 }
 
-export default function SchedulerPage() {
+const SchedulerPage: React.FC = () => {
   const [accounts, setAccounts] = useState<Account[]>([])
   const [selected, setSelected] = useState<number | ''>('')
   const [queue, setQueue] = useState<Content[]>([])
@@ -133,3 +133,5 @@ export default function SchedulerPage() {
     </div>
   )
 }
+
+export default SchedulerPage
