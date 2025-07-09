@@ -26,7 +26,6 @@
     "vite": "^5.0.0",
     "@vitejs/plugin-react": "^5.0.0",
     "@types/node": "^20.8.7",
-    "@types/chart.js": "^4.3.2",
     "@types/react-chartjs-2": "^5.2.1"
   }
 }
