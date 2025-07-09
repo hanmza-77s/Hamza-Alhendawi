@@ -23,7 +23,7 @@ def generate_content(payload: schemas.ContentGenerateRequest, db: Session = Depe
     # Generate media
     image_path = image_gen.generate_image(account.theme)
     music_path = music_gen.generate_music(account.theme)
-    video_path = video_compose.compose_video(image_path, music_path)
+    video_path = video_compose.compose_video(image_path, music_path, caption=caption)
 
     def to_url(path: str) -> str:
         return path if path.startswith("/media") else f"/{path}"

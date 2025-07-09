@@ -83,3 +83,21 @@ def generate_reply(theme: str, comment_text: str) -> str:
         return completion.choices[0].message["content"].strip()
 
     return f"[Mock Reply] Thanks for sharing your thoughts!"
+
+
+def classify_sentiment(text: str) -> str:
+    """Return 'positive', 'neutral', or 'negative'"""
+    if _openai_ready():
+        prompt = f"Classify the sentiment (positive, neutral, negative) of this Instagram comment: {text}\nAnswer with only the word."
+        resp = openai.ChatCompletion.create(
+            model="gpt-4o-mini",
+            messages=[{"role": "user", "content": prompt}],
+            max_tokens=2,
+        )
+        return resp.choices[0].message["content"].strip().lower()
+    # rudimentary fallback
+    if any(w in text.lower() for w in ["love", "great", "awesome", "+"]):
+        return "positive"
+    if any(w in text.lower() for w in ["hate", "bad", "terrible", "-"]):
+        return "negative"
+    return "neutral"

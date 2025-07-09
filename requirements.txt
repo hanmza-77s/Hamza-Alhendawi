@@ -9,5 +9,6 @@ python-multipart
 requests
 aiohttp
 pillow
+numpy
 playwright
 fake-useragent
