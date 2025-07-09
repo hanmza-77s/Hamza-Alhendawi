@@ -5,11 +5,12 @@ from datetime import datetime
 
 from backend.database import get_db
 from backend import models
+from backend import schemas
 
 router = APIRouter(prefix="/analytics", tags=["Analytics"])
 
 
-@router.get("/{account_id}")
+@router.get("/{account_id}", response_model=schemas.AnalyticsOut)
 async def get_analytics(account_id: int, db: Session = Depends(get_db)):
     account = db.query(models.Account).filter_by(id=account_id).first()
     if not account:
@@ -34,11 +35,27 @@ async def get_analytics(account_id: int, db: Session = Depends(get_db)):
     posted_counts = [chart[d]["posted"] for d in dates]
     sched_counts = [chart[d]["scheduled"] for d in dates]
 
-    return {
-        "total": total,
-        "posted": posted,
-        "scheduled": scheduled,
-        "dates": dates,
-        "posted_counts": posted_counts,
-        "scheduled_counts": sched_counts,
-    }
+    # Comment metrics across account
+    comments = (
+        db.query(models.Comment)
+        .join(models.Content, models.Comment.content_id == models.Content.id)
+        .filter(models.Content.account_id == account_id)
+        .all()
+    )
+    comments_total = len(comments)
+    pos = sum(1 for c in comments if c.sentiment == "positive")
+    neu = sum(1 for c in comments if c.sentiment == "neutral")
+    neg = comments_total - pos - neu
+
+    return schemas.AnalyticsOut(
+        total=total,
+        posted=posted,
+        scheduled=scheduled,
+        dates=dates,
+        posted_counts=posted_counts,
+        scheduled_counts=sched_counts,
+        comments_total=comments_total,
+        positive_comments=pos,
+        neutral_comments=neu,
+        negative_comments=neg,
+    )

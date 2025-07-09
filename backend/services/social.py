@@ -4,6 +4,7 @@ from typing import List
 
 from backend.models import Account, Content
 from backend.services import ai
+from backend.database import SessionLocal
 
 
 log = logging.getLogger(__name__)
@@ -144,4 +145,19 @@ def auto_reply(account: Account, content: Content):
         sentiment = ai.classify_sentiment(c)
         reply = ai.generate_reply(account.theme, c)
         log.info("[AutoReply-%s] %s -> %s", sentiment, c, reply)
+
+        # persist comment & reply
+        db = SessionLocal()
+        try:
+            from backend import models
+            comment_obj = models.Comment(
+                content_id=content.id,
+                text=c,
+                sentiment=sentiment,
+                reply=reply,
+            )
+            db.add(comment_obj)
+            db.commit()
+        finally:
+            db.close()
         _sleep_human(1, 3)

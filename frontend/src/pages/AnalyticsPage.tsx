@@ -17,6 +17,10 @@ interface Analytics {
   dates: string[]
   posted_counts: number[]
   scheduled_counts: number[]
+  comments_total: number
+  positive_comments: number
+  neutral_comments: number
+  negative_comments: number
 }
 
 const AnalyticsPage: React.FC = () => {
@@ -77,10 +81,14 @@ const AnalyticsPage: React.FC = () => {
 
       {data && (
         <div className="space-y-4 bg-white p-4 rounded shadow">
-          <div className="flex space-x-4">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
             <Metric label="Total" value={data.total} />
             <Metric label="Posted" value={data.posted} />
             <Metric label="Scheduled" value={data.scheduled} />
+            <Metric label="Comments" value={data.comments_total} />
+            <Metric label="👍 Positive" value={data.positive_comments} />
+            <Metric label="😐 Neutral" value={data.neutral_comments} />
+            <Metric label="👎 Negative" value={data.negative_comments} />
           </div>
           <Line data={chartData} />
         </div>

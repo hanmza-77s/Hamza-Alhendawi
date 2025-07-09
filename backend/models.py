@@ -30,3 +30,18 @@ class Content(Base):
     posted = Column(Boolean, default=False)
 
     account = relationship("Account", back_populates="contents")
+
+
+class Comment(Base):
+    __tablename__ = "comments"
+
+    id = Column(Integer, primary_key=True, index=True)
+    content_id = Column(Integer, ForeignKey("contents.id"))
+    text = Column(Text)
+    sentiment = Column(String)
+    reply = Column(Text)
+
+    content = relationship("Content", back_populates="comments")
+
+# add relationship on Content
+Content.comments = relationship("Comment", back_populates="content", cascade="all, delete-orphan")

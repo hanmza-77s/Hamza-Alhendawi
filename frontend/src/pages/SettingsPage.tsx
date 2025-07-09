@@ -4,6 +4,7 @@ interface Settings {
   openai_api_key: string
   proxies: string
   headless: boolean
+  posting_hours: string
 }
 
 const SettingsPage: React.FC = () => {
@@ -55,6 +56,14 @@ const SettingsPage: React.FC = () => {
             className="w-full border p-2 rounded"
             value={cfg.proxies}
             onChange={(e) => handleChange('proxies', e.target.value)}
+          />
+        </div>
+        <div>
+          <label className="block text-sm">Optimal posting hours (comma separated 0-23)</label>
+          <input
+            className="w-full border p-2 rounded"
+            value={cfg.posting_hours}
+            onChange={(e) => handleChange('posting_hours', e.target.value)}
           />
         </div>
         <div className="flex items-center space-x-2">
