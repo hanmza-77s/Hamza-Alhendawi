@@ -1,0 +1,10 @@
+fastapi
+uvicorn[standard]
+sqlalchemy>=2.0
+pydantic
+python-dotenv
+openai
+moviepy
+python-multipart
+requests
+aiohttp
